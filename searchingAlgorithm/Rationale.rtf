@@ -1,0 +1,30 @@
+{\rtf1\ansi\ansicpg950\cocoartf1265\cocoasubrtf190
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww17540\viewh13940\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+
+\f0\fs36 \cf0 Rationale:\
+	First let me restate the question for clarity:\
+	\'93Define usrID as integer ; define tags as ArrayList<String>. There are in total more than 100million users and more than 300,000 tags, each tag distinct and every users are only allowed to have a lmited amount of tags. Write an algorithm that saves time while not losing space to find any two users with more than two matching tags. \'94.\
+	Then let me reason my way through solving this problem.\
+	Let\'92s say use Java to write an algorithm. And let\'92s confine each user\'92s tags within 20.\
+	Files containing user ID and tags existed somewhere in local disk. Usually as how I would think about this is each user will be a class/data structure identified by its ID, with tags as one of its data inside. However that\'92s not specified so let\'92s be easy about it and assume that user IDs and tags are both stored in one .txt file.\
+	Let\'92s say the format is exactly as given:\
+	userID, tags\
+	Separated by \'93,\'94\
+	An example of our file would be:\
+	145921890, sports news apple life\
+	180923479, rap dance tattoo\
+	217809098, system news china java\
+	\'85. (and continue)\
+	\
+	okay now we know how the file is like, we can extract information from it by using java.io.FileReader. \
+	But what do we want our output from the fileReader to be?\
+	I have a few choices. \
+1. this one would be to use two arrays and map the ID to tags by indexing. So IDs can be int[] and tags can be String[][]. To actually perform the search, I\'92ll need to do a pair search, which basically means I take the first one, and compare this to every other one to find its match. Because having the same tags is mutual so index only moves forward. This means we are running on O(100,000,001 * 50,000,000) and space this will take up is 100,000,000 * (4 byte) for each userID, and 300,000 * (2 byte) each chinese character * (2) each tag * 20 at most this many tags, and it roughly takes up 404.35 Mb.\
+\
+2.this one would be to use a edge node graph implementation. every tag is a node. Upon entry we create all the tag nodes and they users can link to them. And then we can loop through the nodes, create a way to document the pairs we\'92ve seen, if any pairs\'92 tag number went up above 2, we can go ahead and output it.\
+This should take at average O(300,000 * \
+	\
+}
