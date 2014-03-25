@@ -1,0 +1,10 @@
+Updates:
+
+Add a staring screen, with 3 different choices of difficulties.
+Add monsters but not yet movable.
+Add a pause menu.
+Add a restart button "r"
+
+Add random floors
+add music
+add bosses

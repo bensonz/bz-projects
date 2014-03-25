@@ -1,0 +1,137 @@
+/*
+ * Peg solitaire solver
+ *
+ * 15-122 Principles of Imperative Computation */
+
+#use <args>
+#use <conio>
+#use <util>
+
+//move = [end row,end col,start row, start col]
+typedef int[] move;
+
+int row_start(move m)
+//@requires \length(m)==4;
+{
+    return m[2];
+}
+
+int col_start(move m)
+//@requires \length(m)==4;
+{
+    return m[3];
+}
+
+int row_end(move m)
+//@requires \length(m)==4;
+{
+    return m[0];
+}
+
+int col_end(move m)
+//@requires \length(m)==4;
+{
+    return m[1];
+}
+
+move create_move(int init, int final)
+//@ensures \length(\result) == 4;
+{
+    move M = alloc_array(int,4);
+    M[2] = init/8;
+    M[3] = init%8;
+    M[0] = final/8;
+    M[1] = final%8;
+    return M;
+}
+
+//from peg-main.c0
+board move_on_board(board B,move M){
+  int row1 = row_start(M);
+  int row2 = row_end(M);
+  int col1 = col_start(M);
+  int col2 = col_end(M);
+  int i = 8*row1+col1;
+  int k = 8*row2+col2;
+  int j = (i+k)/2;
+  B[i] = 1-B[i];
+  B[j] = 1-B[j];
+  B[k] = 1-B[k];
+  return B;
+}
+
+stack possilbe_moves(board B)
+//@requires is_board(B);
+//@ensures is_board(B);
+{
+    stack new = stack_new();
+    for (int row = 0; row < 8; row++) {
+        for (int col = 0; col < 8; col++) {
+            int l = row * 8 + col;
+            if (row>=2 && B[l] == 1 && B[l-8]==1 && B[l-16] == 0) {
+                push(new,create_move(l,l-16));
+            }
+            if (row<=5 && B[l] == 1 && B[l+8]==1 && B[l+16] == 0) {
+                push(new,create_move(l,l+16));
+            }
+            if (col<=5 && B[l] == 1 && B[l+1]==1 && B[l+2] == 0) {
+                push(new,create_move(l,l+2));
+            }
+            if (col>=2 && B[l] == 1 && B[l-1]==1 && B[l-2] == 0) {
+                push(new,create_move(l,l-2));
+            }
+        }
+    }
+    return new;
+}
+
+int min(int a, int b){
+    if (a<b){return a;}
+    else return b;
+}
+
+int solve(board B, stack S, int pegN)
+//@requires is_board(B);
+//@requires pegN >0;
+{
+    //base case1, if pegN = 1, return it
+    if (pegN == 1){return 1;}
+    else{
+        //base case2, if no moves exist,return the lowest we can get
+        stack pms = possilbe_moves(B);
+        if (stack_empty(pms)){return pegN;}
+        //recursively call the function
+        else{
+            move m = pop(pms);//get a possilbe move, and try it
+            B = move_on_board(B,m);
+            push(S,m);
+            return min(pegN,solve(B,S,num_pegs(B)));
+        }
+    }
+}
+
+void reverse_stack(stack S){
+    stack new = stack_new();
+    stack copy = stack_new();
+    while(!stack_empty(S)){
+        push(new,pop(S));
+    }
+    while(!stack_empty(new)){
+        push(copy,pop(new));
+    }
+    while(!stack_empty(copy)){
+        push(S,pop(copy));
+    }
+}
+
+int peg_solve(board B, stack S)
+//@requires is_board(B);
+//@requires stack_empty(S);
+//@ensures is_board(B);
+//@ensures \result >= 1;
+{
+    int pegN = num_pegs(B);
+    int i = solve(B,S,pegN);
+    reverse_stack(S);
+    return i;
+}
