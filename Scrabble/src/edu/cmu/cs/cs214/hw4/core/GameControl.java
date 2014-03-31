@@ -26,6 +26,9 @@ public class GameControl {
 	private boolean isReverse;
 	private int reverseRound;
 	private int negative;
+	private int extra_turn_round;
+	private boolean extra_activate;
+	private int comback;
 
 	/**
 	 * Game main control class.
@@ -35,6 +38,9 @@ public class GameControl {
 	 */
 	public GameControl(int num_players) {
 		round = 0;
+		extra_turn_round = -1;
+		extra_activate = false;
+		comback = -1;
 		playBoard = new Board();
 		hmap_dict = new Dictionary("assets/words.txt");
 		playerMoves = new Move[NUM_OF_MOVES_PER_ROUND];
@@ -43,8 +49,8 @@ public class GameControl {
 		isReverse = false;
 		negative = 1;
 
-		if (num_players > 4) {
-			throw new IllegalStateException("Number of players must be 0~4");
+		if (num_players > 4 || num_players < 2) {
+			throw new IllegalStateException("Number of players must be 2~4");
 		} else {
 			num_player = num_players;
 			players = new Player[num_player];
@@ -92,12 +98,18 @@ public class GameControl {
 	public int enablePlay(Move[] moves) {
 		if (!isValidPlay(moves)) {
 			// play is not valid, cannot enable;
+			System.out.println("play not enabled");
 			return 1;
 		} else {
 			Move boomMove = null;
 			for (Move m : moves) {
 				int[] loc = m.getMoveLocation();
+				if (m.getMoveSpecialTile() != null
+						&& m.getMoveSpecialTile().getIDENTIFIER() == 4) {
+					extraTurn();
+				}
 				if (playBoard.getBoardSpecialTile(loc[0], loc[1]) != null) {
+					//we placed down a normal tile onto special
 					int IDENTIFIER = playBoard.getBoardSpecialTile(loc[0],
 							loc[1]).getIDENTIFIER();
 					switch (IDENTIFIER) {
@@ -112,6 +124,9 @@ public class GameControl {
 						break;
 					case (3):
 						randomPointLose();
+						break;
+					case (4):
+						extra_activate = true;
 						break;
 					default:
 						break;
@@ -128,6 +143,10 @@ public class GameControl {
 			addPoints(getPlayer(), score);
 			return 0;
 		}
+	}
+
+	private void extraTurn() {
+		extra_turn_round = round; // record down the round
 	}
 
 	private int deduction(Move[] moves, Move center) {
@@ -149,7 +168,7 @@ public class GameControl {
 		int score = 0;
 		moveWord = getMoveWordWithHead(moves);
 		score += getPlayWordScore(moves);
-		// System.out.print("WORD SCORE: " + score + "\n");
+		// System.out.print("Word score" + score + "\n");
 		if (round != 0) {
 			for (Move m : moves) {
 				/*
@@ -224,7 +243,11 @@ public class GameControl {
 				int letterMult = 1;
 				char c = m.getMoveNormalTile().getCharacter();
 				int letterScore = playBoard.getLetterVal(c);
-				mw[charSearch(mw, c)] = 0;
+				int k = charSearch(mw, c);
+				if (k == -1) {
+					return 0;
+				}
+				mw[k] = 0;
 				int[] loc = m.getMoveLocation();
 				int boardscore = playBoard.getBoardScoring(loc[0], loc[1]);
 				switch (boardscore) {
@@ -282,11 +305,22 @@ public class GameControl {
 		playerMoves = new Move[NUM_OF_MOVES_PER_ROUND];
 		moveUsed = 0;
 		negative = 1;
+		moveWord = "";
 		round++;
 		getPlayer().getWholeRack().refillRack();
 		if (isReverse) {
 			reverseRound--;
 		}
+		if (extra_activate && extra_turn_round != -1) {
+			System.out.println("extra turn activated ");
+			comback = round;
+			extra_activate = false;
+			round = extra_turn_round;
+		} else if (!extra_activate && comback != -1) {
+			round = comback;
+			comback = -1;
+		}
+		return;
 	}
 
 	public int getRound() {
@@ -319,12 +353,13 @@ public class GameControl {
 
 		// no move? definitely false.
 		if (moves.length < 1) {
+			System.out.print("Move length not long enough");
 			return false;
 		}
 
 		// first round
 		// at least one move have to be at the center.
-		if (round == 0) {
+		if (round == 0 || playBoard.getBoardNormalTile(7, 7) == null) {
 			boolean firstRoundMoves = false;
 			for (Move m : moves) {
 				if (m.getMoveLocation()[0] == 7 && m.getMoveLocation()[1] == 7) {
@@ -332,7 +367,7 @@ public class GameControl {
 				}
 			}
 			if (!firstRoundMoves || moves.length == 1) {
-				System.out.print("HELLO NIGGA \n");
+				System.out.print("first round move wrong");
 				return false;
 			}
 		}
@@ -341,7 +376,12 @@ public class GameControl {
 		 * special tiles are of same line 2. at least one move is connected to a
 		 * tile on board 3. all connected moves are valid words
 		 */
-		if (moves.length != 1) {
+		moveWord = "";
+		if (moves.length == 1) {
+			if (moves[0].getMoveSpecialTile() == null) {
+				moveWord += moves[0].getMoveNormalTile().getCharacter();
+			}
+		} else if (moves.length != 1) {
 			int[] loc = new int[] { -1, -1 };
 			int[] sloc = new int[] { -1, -1 };
 			for (int i = 0; i < moves.length - 1; i++) {
@@ -364,22 +404,21 @@ public class GameControl {
 				// System.out.print("sloc = {" + sloc[0] + "," + sloc[1] +
 				// " }");
 				// not on the same line
-				System.out.print("HELLO NIG \n");
+				System.out.print("Not on the same line");
 				return false;
 			}
-			moves = sortPlayMoves(moves);
-			moveWord = "";
+			moves = sortPlayMoves(moves);// sort it!
 			for (int i = 0; i < moves.length; i++) {
 				Move m = moves[i];
 				int[] check = m.getMoveLocation();
 				if (m.getMoveSpecialTile() != null) {
+					// I am ignoring all special tiles
 					continue;
 				}
-				moveWord += m.getMoveNormalTile().getCharacter();
 				if (check[hORv] != loc[hORv]) {
 					// if moves are not all in one line,
 					// then this play is not valid;
-					System.out.print("HELLO wtf \n");
+					System.out.print("Not in the same line");
 					return false;
 				}
 				if (i + 1 != moves.length) {
@@ -388,21 +427,44 @@ public class GameControl {
 					int[] nLoc = next.getMoveLocation();
 					int cc = (hORv == 0) ? 1 : 0;
 					if (Math.abs(check[cc] - nLoc[cc]) > 1) {
+						System.out.println("diff " + check[cc] + ", "
+								+ nLoc[cc]);
 						// not connecting
-						for (int idk = check[hORv]; idk <= nLoc[hORv]; idk++) {
+						for (int idk = check[cc]; idk < nLoc[cc]; idk++) {
+							idk++;
 							if (hORv == 0) {
 								// horizontal
 								if (playBoard.getBoardNormalTile(nLoc[0], idk) == null) {
+									System.out
+											.println("horizontal word not connecting");
 									return false;
+								} else {
+									moveWord += m.getMoveNormalTile()
+											.getCharacter()
+											+ playBoard.getBoardNormalTile(
+													nLoc[0], idk)
+													.getCharacter();
 								}
 							} else {
 								// vertical
 								if (playBoard.getBoardNormalTile(idk, nLoc[1]) == null) {
+
+									System.out
+											.println("vertical word not connecting");
 									return false;
+								} else {
+									moveWord += m.getMoveNormalTile()
+											.getCharacter()
+											+ playBoard.getBoardNormalTile(idk,
+													nLoc[1]).getCharacter();
 								}
 							}
 						}
+					} else {
+						moveWord += m.getMoveNormalTile().getCharacter();
 					}
+				} else {
+					moveWord += m.getMoveNormalTile().getCharacter();
 				}
 			}
 		}
@@ -422,20 +484,22 @@ public class GameControl {
 				}
 			}
 			int[] check = m.getMoveLocation();
-			/**
 			if (playBoard.getBoardNormalTile(check[0], check[1]) != null) {
 				// a normal tile already there.
-				System.out.print("HELLO GGA \n");
+				System.out.print("Tried placing another move on board \n");
 				return false;
-			}**/
+			}
 			int[] up = new int[] { check[0], check[1] - 1 };
 			int[] left = new int[] { check[0] - 1, check[1] };
 			int[] down = new int[] { check[0], check[1] + 1 };
 			int[] right = new int[] { check[0] + 1, check[1] };
-			if (playBoard.getBoardNormalTile(up[0], up[1]) != null
-					|| playBoard.getBoardNormalTile(left[0], left[1]) != null
-					|| playBoard.getBoardNormalTile(down[0], down[1]) != null
-					|| playBoard.getBoardNormalTile(right[0], right[1]) != null) {
+			if ((up[1] > 0 && playBoard.getBoardNormalTile(up[0], up[1]) != null)
+					|| (left[0] > 0 && playBoard.getBoardNormalTile(left[0],
+							left[1]) != null)
+					|| (down[1] < playBoard.getBoardRow() && playBoard
+							.getBoardNormalTile(down[0], down[1]) != null)
+					|| (right[0] < playBoard.getBoardCol() && playBoard
+							.getBoardNormalTile(right[0], right[1]) != null)) {
 				// check if it is connecting to other tiles
 				// the play not placed on board yet, so it's okay to just do
 				// this check
@@ -443,15 +507,9 @@ public class GameControl {
 			}
 		}
 		if (round != 0 && !valid) {
-			System.out.print("HELLO \n");
+			System.out.print("not connecting other tiles");
 			return false;
 		} else {
-			moveWord = getMoveWordWithHead(moves);
-			System.out.print(moveWord + "\n");
-			if (!hmap_dict.search(moveWord)) {
-				System.out.print(moveWord);
-				return false;
-			}
 			for (Move m : moves) {
 				// because at least one move is adjacent to a tile on board,
 				// I do not need to consider if all words found are null.
@@ -463,11 +521,21 @@ public class GameControl {
 					 * System.out.print("searching : " + word + ": ");
 					 */
 					if (!hmap_dict.search(word)) {
-						System.out.print("fail. \n");
+						System.out.print("fail searching " + word + "\n");
 						return false;
 					}
-					// System.out.print("success. \n");
+					System.out.print("succeed searching " + word + "\n");
+					if (moves.length == 1) {
+						return true;
+					}
 				}
+			}
+			System.out.print(moveWord + "\n");
+			moveWord = getMoveWordWithHead(moves);
+			System.out.print(moveWord + "\n");
+			if (!hmap_dict.search(moveWord)) {
+				System.out.print("Move word Not found:" + moveWord + "\n");
+				return false;
 			}
 		}
 		return true;
@@ -501,37 +569,51 @@ public class GameControl {
 	private String getMoveWordWithHead(Move[] moves) {
 		if (hORv == 1) {
 			// Vertically placed, going to check the head
-			int[] loc = moves[0].getMoveLocation();
-			for (Move m : moves) {
-				if (m.getMoveLocation()[0] <= loc[0]) {
-					loc[0] = m.getMoveLocation()[0];
-				}
-			}
-			loc[0]--;
+			int[] head = moves[0].getMoveLocation();
+			head[0]--;
+			int[] tail = moves[moves.length - 1].getMoveLocation();
+			tail[0]++;
 			String check = "";
-			if (playBoard.getBoardNormalTile(loc[0], loc[1]) != null) {
-				char c = playBoard.getBoardNormalTile(loc[0], loc[1])
+			while (head[0] > 0
+					&& playBoard.getBoardNormalTile(head[0], head[1]) != null) {
+				char c = playBoard.getBoardNormalTile(head[0], head[1])
 						.getCharacter();
-				check += Character.toString(c);
+				check = Character.toString(c) + check;
+				head[0]--;
 			}
 			check += moveWord;
+			while (tail[0] < playBoard.getBoardRow()
+					&& playBoard.getBoardNormalTile(tail[0], tail[1]) != null) {
+				char c = playBoard.getBoardNormalTile(tail[0], tail[1])
+						.getCharacter();
+				check += Character.toString(c);
+				tail[0]++;
+			}
 			return check;
 		} else {
 			// horizontal word
-			int[] loc = moves[0].getMoveLocation();
-			for (Move m : moves) {
-				if (m.getMoveLocation()[1] <= loc[1]) {
-					loc[1] = m.getMoveLocation()[1];
-				}
-			}
-			loc[1]--;
+			int[] head = moves[0].getMoveLocation();
+			head[1]--;
+
+			int[] tail = moves[moves.length - 1].getMoveLocation();
+			tail[1]++;
+
 			String check = "";
-			if (playBoard.getBoardNormalTile(loc[0], loc[1]) != null) {
-				char c = playBoard.getBoardNormalTile(loc[0], loc[1])
+			while (head[1] > 0
+					&& playBoard.getBoardNormalTile(head[0], head[1]) != null) {
+				char c = playBoard.getBoardNormalTile(head[0], head[1])
 						.getCharacter();
-				check += Character.toString(c);
+				check = Character.toString(c) + check;
+				head[1]--;
 			}
 			check += moveWord;
+			while (tail[1] < playBoard.getBoardCol()
+					&& playBoard.getBoardNormalTile(tail[0], tail[1]) != null) {
+				char c = playBoard.getBoardNormalTile(tail[0], tail[1])
+						.getCharacter();
+				check += Character.toString(c);
+				tail[1]++;
+			}
 			return check;
 		}
 	}
@@ -687,11 +769,16 @@ public class GameControl {
 	}
 
 	private int charSearch(char[] array, char c) {
-		for (int i = 0; i <= array.length; i++) {
+		for (int i = 0; i < array.length; i++) {
 			if (array[i] == c) {
 				return i;
 			}
 		}
 		return -1;
 	}
+
+	public boolean playerTilesEmpty() {
+		return (getPlayer().getPocketSize() == 0);
+	}
+
 }

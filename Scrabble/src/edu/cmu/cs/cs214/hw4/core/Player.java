@@ -1,46 +1,54 @@
 package edu.cmu.cs.cs214.hw4.core;
 
+import java.util.Vector;
+
 public class Player {
 	private final int ID;
 	private int score;
 	private Rack rack;
 	private int num_special;
 	private static final int MAX_NUM = 7;
+
 	/**
 	 * player class, takes in an integer ID and initialized tiles for him
+	 * 
 	 * @param id
 	 * @param initTiles
 	 */
-	public Player(int id){
+	public Player(int id) {
 		ID = id;
 		score = 0;
 		rack = new Rack(MAX_NUM);
 		num_special = 0;
 	}
-	
-	public int getID(){
+
+	public int getID() {
 		return ID;
 	}
-	
-	public int getScore(){
+
+	public int getScore() {
 		return score;
 	}
-	
-	public NormalTile[] getCurrentPlayingRack(){
+
+	public NormalTile[] getCurrentPlayingRack() {
 		return rack.getArrayOfNormalTile();
 	}
-	
-	public Rack getWholeRack(){
+
+	public Vector<SpecialTile> getSpecialTile() {
+		return rack.getRackSpecialTile();
+	}
+
+	public Rack getWholeRack() {
 		return rack;
 	}
-	
-	public int addScore(int add){
+
+	public int addScore(int add) {
 		score += add;
 		return 0;
 	}
-	
-	public int purchaseTile(SpecialTile st){
-		if (score <= st.getPrice()){
+
+	public int purchaseTile(SpecialTile st) {
+		if (score <= st.getPrice()) {
 			return 1;
 		}
 		score -= st.getPrice();
@@ -55,5 +63,9 @@ public class Player {
 	public void retire(int i) {
 		rack.retire(i);
 	}
-	
+
+	public int getPocketSize() {
+		return rack.getPocket().size();
+	}
+
 }

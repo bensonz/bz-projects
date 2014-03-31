@@ -12,18 +12,18 @@ public class TileListener implements ActionListener {
 	private final SpecialTile stile;
 	private final Gui gui;
 	private final PlayerPanel p;
+
 	/**
-	 * Creates a new square listener to get click events at a specific game grid
-	 * coordinate.
+	 * Creates a new tile listener
 	 */
-	public TileListener(NormalTile nt,Gui GUI, PlayerPanel p) {
+	public TileListener(NormalTile nt, Gui GUI, PlayerPanel p) {
 		this.ntile = nt;
 		this.stile = null;
 		this.gui = GUI;
 		this.p = p;
 	}
-	
-	public TileListener(SpecialTile st,Gui GUI,PlayerPanel p){
+
+	public TileListener(SpecialTile st, Gui GUI, PlayerPanel p) {
 		this.ntile = null;
 		this.stile = st;
 		this.gui = GUI;
@@ -32,8 +32,11 @@ public class TileListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent evt) {
-		gui.notifyTileSelected(ntile,stile);
-		p.updatePlayerSelect(ntile,stile);
+		if (stile != null) {
+			stile.setBelong(p.getPlayerID());
+		}
+		gui.notifyTileSelected(ntile, stile);
+		p.updatePlayerSelect(ntile, stile);
 	}
 
 }

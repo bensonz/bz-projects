@@ -2,6 +2,7 @@ package edu.cmu.cs.cs214.hw4.core;
 
 public class SpecialTile {
 	private final int IDENTIFIER;
+	private static int BELONG;
 
 	/**
 	 * creates a special tile.
@@ -21,6 +22,14 @@ public class SpecialTile {
 
 	public int getIDENTIFIER() {
 		return IDENTIFIER;
+	}
+
+	public int getBelong() {
+		return BELONG;
+	}
+
+	public void setBelong(int belong) {
+		BELONG = belong;
 	}
 
 	public String toString() {

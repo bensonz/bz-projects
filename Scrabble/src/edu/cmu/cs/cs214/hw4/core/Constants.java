@@ -7,11 +7,6 @@ import java.util.HashMap;
  */
 public class Constants {
 
-	public static final int PASS = 0;
-	public static final int PLAY = 10;
-	public static final int EXCHANGE = 20;
-	public static final int PURCHASE = 30;
-
 	public final static int[][] BOOM_TILE = { { -2, 0 }, { -1, -1 }, { -1, 0 },
 			{ -1, 1 }, { 0, -2 }, { 0, -1 }, { 0, 0 }, { 0, 1 }, { 0, 2 },
 			{ 1, -1 }, { 1, 0 }, { 1, 1 }, { 2, 0 } };

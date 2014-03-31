@@ -22,9 +22,8 @@ public class ControlListener implements ActionListener {
 		case(1) : // exchange
 			gui.updateExchange();
 		break;
-		case(2) : // Purchase
-			gui.updatePurcahse();
-		break;
+		// there was a case 2 for purchase
+		// then I decided to do it another way.
 		case(3) : //recall
 			gui.updateRecall();
 		break;
