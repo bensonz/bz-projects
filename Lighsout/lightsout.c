@@ -39,27 +39,42 @@ size_t key_hash(ht_key k){
   return b;
 }
 
+void board_free(board* b){
+  while(!queue_empty(b->moves)){
+    one_move* m =deq(b->moves);
+    if( m!= NULL){
+      free(m);
+    }
+  }
+  if (b->moves != NULL){
+    queue_free(b->moves,NULL);
+    }
+  free(b);
+}
+
 void elem_free(ht_elem e){
-  free(e);
+  board_free(e);
 }
 
-void free_all(queue* possilbe_moves, queue* pb, 
-    board* n_b, ht* boards){
-    queue_free(possilbe_moves,&free);
-    queue_free(pb->moves,NULL);
-    queue_free(pb,NULL);
-    queue_free(n_b -> moves);
-    free(n_b);
-    ht_free(boards);
+
+void free_all(queue possible_moves, queue pb, ht boards)
+{
+  while (!queue_empty(possible_moves)){
+    one_move* m = deq(possible_moves);
+    free(m);
+  }
+  queue_free(possible_moves,NULL);
+  queue_free(pb,NULL);
+  ht_free(boards);
 }
 
-void get_possible_moves(queue* possilbe_moves,uint8_t width, uint8_t height){
+void get_possible_moves(queue* possible_moves,uint8_t width, uint8_t height){
   for (uint8_t i = 0; i < width; i++){
     for (uint8_t j = 0; j < height; j ++){
       one_move* new = xmalloc(sizeof(one_move));
-      new->row = i;
-      new->col = j;
-      enq(*possilbe_moves,new);
+      new->row = j;
+      new->col = i;
+      enq(*possible_moves,new);
     }
   }
 }
@@ -70,11 +85,13 @@ void queue_copy(queue a, queue original){
     enq(ha,deq(original));
   }
   while(!queue_empty(ha)){
-    board* b = deq(ha);
-    enq(a,b);
+    one_move* b = deq(ha);
+    one_move* c = xmalloc(sizeof(one_move));
+    *c = *b;
+    enq(a,c);
     enq(original,b);
   }
-  queue_free(ha,elem_free);
+  queue_free(ha,NULL);
 }
 
 board* new_board(board* old_board,
@@ -106,29 +123,30 @@ board* new_board(board* old_board,
   return b;
 }
 
-bool solve(queue* pb, ht* boards_pointer,
-  queue* pmp,uint8_t width,uint8_t height)
+bool solve(queue pb, ht boards_pointer,
+           queue pmp,uint8_t width,uint8_t height)
 {
-  while (!(queue_empty(*pb))){
-    board* old_board = deq(*pb);
-    if (queue_empty(*pmp)){get_possible_moves(pmp,width,height);}
-    while (!queue_empty(*pmp)){
-      one_move* move = deq(*pmp);
+  while (!(queue_empty(pb))){
+    board* old_board = deq(pb);
+    if (queue_empty(pmp)){get_possible_moves(&pmp,width,height);}
+    while (!queue_empty(pmp)){
+      one_move* move = deq(pmp);
       board* current_board = new_board(old_board, move, width, height);
-      if (ht_lookup(*boards_pointer, elem_key(current_board)) == NULL){
-        ht_insert(*boards_pointer,current_board);
+      if (ht_lookup(boards_pointer, elem_key(current_board)) == NULL){
         enq(current_board->moves,move);
-        enq(*pb,current_board);
-        if (current_board->c_b == 0){
+        enq(pb,current_board);
+        ht_insert(boards_pointer,current_board);
+        if (current_board->c_b == bitarray_new()){
           return true;
         }
       }
-      else{ // I thought i need to free current_board...
-      free(current_board);
+      else{
+        board_free(current_board);
+        free(move);
       }
     }
   }
-  return !queue_empty(*pb);
+  return !queue_empty(pb);
 }
 
 void print_sol(board* b){
@@ -139,9 +157,9 @@ void print_sol(board* b){
   while(!(queue_empty(ha))){
     one_move* m = deq(ha);
     fprintf(stdout,"%d:%d \n",m->row,m->col);
-    enq(b->moves,m);
+    free(m);
   }
-  queue_free(ha,elem_free);
+  queue_free(ha,NULL);
 }
 
 
@@ -162,28 +180,28 @@ int main(int argc, char **argv)
   /* hash tables contains pointers to struct of board
    * queue contains pointers to stuct of one_move
    */
-  if (array == 0){return 0;}
+  if (array == bitarray_new()){return 0;}
   ht boards = ht_new (BITARRAY_LIMIT,elem_key,key_equal,key_hash,
                       elem_free);
-  queue possilbe_moves = queue_new();
+  queue possible_moves = queue_new();
   queue pb = queue_new();
   board* n_b = xmalloc(sizeof(board));
   n_b -> c_b = array;
   n_b -> moves = queue_new();
   enq(pb,n_b);
-  get_possible_moves(&possilbe_moves, width, height);
-  if(solve(&pb, &boards, &possilbe_moves,width,height)){
-    board* solution = xmalloc(sizeof(board));
-    while(!(queue_empty(pb))){
+  ht_insert(boards,n_b);
+  get_possible_moves(&possible_moves, width, height);
+  if(solve(pb, boards, possible_moves,width,height)){
+    board* solution = deq(pb);
+    while (!queue_empty(pb)){
       solution = deq(pb);
     }
     print_sol(solution);
-    free(solution);
-    free_all(&possilbe_moves,&pb,n_b,boards);
+    free_all(possible_moves,pb,boards);
     return 0;
   }
   else {
-    free_all(&possilbe_moves,&pb,n_b,boards);
+    free_all(possible_moves,pb,boards);
     return 1;
   }
 }

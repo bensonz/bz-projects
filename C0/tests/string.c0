@@ -1,0 +1,11 @@
+#use <conio>
+int main(){
+    string x = "i fucked your mom";
+    print(x);
+    print("\n");
+    print("adsf");
+    char* y = alloc(char);
+    *y = 'i';
+    print("niggauhhh");
+    return 0;
+}
