@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<project name="a_framework" default="run" basedir=".">
+	<property name="build.dir" value="build" />
+	<property name="main.build.dir" value="${build.dir}/main" />
+	<property name="main.src.dir" value="src" />
+	<property name="deploy.dir" value="deploy" />
+	<!-- Fully-qualified name of main class -->
+	  <property name="main.class" value="edu.cmu.cs.cs214.hw5.framework.Main" />
+
+	<path id="classpath.base">
+		<pathelement location="libs/egit-core-3.3.0.jar" />
+		<pathelement location="libs/org.eclipse.egit.github.core-2.1.5" />
+		<pathelement location="libs/twitter4j-async-3.0.4.jar" />
+		<pathelement location="libs/twitter4j-core-3.0.4.jar" />
+		<pathelement location="twitter4j.properties" />
+		<pathelement location="githublogin.txt" />
+		<pathelement location="${main.build.dir}"/>
+	</path>
+
+	<target name="init">
+		<!-- Create the time stamp -->
+		<tstamp />
+		<!-- Create the build directory structure used by compile -->
+		<mkdir dir="${build.dir}" />
+	</target>
+
+	<target name="compile" depends="init" description="compile the source">
+		<mkdir dir="${main.build.dir}" />
+		<javac srcdir="${main.src.dir}" destdir="${main.build.dir}" includeantruntime="false">
+			<classpath refid="classpath.base" />
+		</javac>
+		<echo message="build done" />
+	</target>
+
+	<target name="compile-test" depends="compile" description="compile the tests">
+	</target>
+
+	<target name="test" depends="compile-test" description="run the tests">
+	</target>
+
+	 <target name="run" depends="compile" description="run the code">
+	    <java fork="true" dir = "." classname="${main.class}">
+	        <classpath refid="classpath.base"/>
+	    </java>
+	  </target>
+
+	<target name="dist" depends="compile" description="generate the distribution">
+		<!-- Create the distribution directory -->
+		<mkdir dir="${deploy.dir}" />
+		<!-- Put everything in ${build} into the ${ant.project.name}-${DSTAMP}.jar file -->
+		<jar jarfile="${deploy.dir}/${ant.project.name}-${DSTAMP}.jar" basedir="${main.build.dir}" />
+	</target>
+
+	<!-- Delete all build files -->
+	<!-- To run this: use "ant clean" -->
+	<target name="clean">
+		<delete dir="${build.dir}" />
+		<delete dir="${deploy.dir}" />
+		<echo message="clean done" />
+	</target>
+</project>
