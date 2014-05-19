@@ -1,0 +1,498 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		228DF28F19298E5D00977B85 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 228DF28E19298E5D00977B85 /* Cocoa.framework */; };
+		228DF29919298E5D00977B85 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 228DF29719298E5D00977B85 /* InfoPlist.strings */; };
+		228DF29B19298E5D00977B85 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 228DF29A19298E5D00977B85 /* main.m */; };
+		228DF29F19298E5D00977B85 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 228DF29D19298E5D00977B85 /* Credits.rtf */; };
+		228DF2A219298E5D00977B85 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 228DF2A119298E5D00977B85 /* AppDelegate.m */; };
+		228DF2A519298E5D00977B85 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 228DF2A319298E5D00977B85 /* MainMenu.xib */; };
+		228DF2A819298E5D00977B85 /* Time_management.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 228DF2A619298E5D00977B85 /* Time_management.xcdatamodeld */; };
+		228DF2AA19298E5D00977B85 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 228DF2A919298E5D00977B85 /* Images.xcassets */; };
+		228DF2B119298E5D00977B85 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 228DF2B019298E5D00977B85 /* XCTest.framework */; };
+		228DF2B219298E5D00977B85 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 228DF28E19298E5D00977B85 /* Cocoa.framework */; };
+		228DF2BA19298E5D00977B85 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 228DF2B819298E5D00977B85 /* InfoPlist.strings */; };
+		228DF2BC19298E5D00977B85 /* Time_managementTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 228DF2BB19298E5D00977B85 /* Time_managementTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		228DF2B319298E5D00977B85 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 228DF28319298E5D00977B85 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 228DF28A19298E5D00977B85;
+			remoteInfo = "Time-management";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		228DF28B19298E5D00977B85 /* Time-management.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Time-management.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		228DF28E19298E5D00977B85 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		228DF29119298E5D00977B85 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		228DF29219298E5D00977B85 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		228DF29319298E5D00977B85 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		228DF29619298E5D00977B85 /* Time-management-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Time-management-Info.plist"; sourceTree = "<group>"; };
+		228DF29819298E5D00977B85 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		228DF29A19298E5D00977B85 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		228DF29C19298E5D00977B85 /* Time-management-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Time-management-Prefix.pch"; sourceTree = "<group>"; };
+		228DF29E19298E5D00977B85 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		228DF2A019298E5D00977B85 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		228DF2A119298E5D00977B85 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		228DF2A419298E5D00977B85 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		228DF2A719298E5D00977B85 /* Time_management.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Time_management.xcdatamodel; sourceTree = "<group>"; };
+		228DF2A919298E5D00977B85 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		228DF2AF19298E5D00977B85 /* Time-managementTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Time-managementTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		228DF2B019298E5D00977B85 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		228DF2B719298E5D00977B85 /* Time-managementTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Time-managementTests-Info.plist"; sourceTree = "<group>"; };
+		228DF2B919298E5D00977B85 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		228DF2BB19298E5D00977B85 /* Time_managementTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Time_managementTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		228DF28819298E5D00977B85 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				228DF28F19298E5D00977B85 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		228DF2AC19298E5D00977B85 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				228DF2B219298E5D00977B85 /* Cocoa.framework in Frameworks */,
+				228DF2B119298E5D00977B85 /* XCTest.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		228DF28219298E5D00977B85 = {
+			isa = PBXGroup;
+			children = (
+				228DF29419298E5D00977B85 /* Time-management */,
+				228DF2B519298E5D00977B85 /* Time-managementTests */,
+				228DF28D19298E5D00977B85 /* Frameworks */,
+				228DF28C19298E5D00977B85 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		228DF28C19298E5D00977B85 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				228DF28B19298E5D00977B85 /* Time-management.app */,
+				228DF2AF19298E5D00977B85 /* Time-managementTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		228DF28D19298E5D00977B85 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				228DF28E19298E5D00977B85 /* Cocoa.framework */,
+				228DF2B019298E5D00977B85 /* XCTest.framework */,
+				228DF29019298E5D00977B85 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		228DF29019298E5D00977B85 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				228DF29119298E5D00977B85 /* AppKit.framework */,
+				228DF29219298E5D00977B85 /* CoreData.framework */,
+				228DF29319298E5D00977B85 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		228DF29419298E5D00977B85 /* Time-management */ = {
+			isa = PBXGroup;
+			children = (
+				228DF2A019298E5D00977B85 /* AppDelegate.h */,
+				228DF2A119298E5D00977B85 /* AppDelegate.m */,
+				228DF2A319298E5D00977B85 /* MainMenu.xib */,
+				228DF2A919298E5D00977B85 /* Images.xcassets */,
+				228DF2A619298E5D00977B85 /* Time_management.xcdatamodeld */,
+				228DF29519298E5D00977B85 /* Supporting Files */,
+			);
+			path = "Time-management";
+			sourceTree = "<group>";
+		};
+		228DF29519298E5D00977B85 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				228DF29619298E5D00977B85 /* Time-management-Info.plist */,
+				228DF29719298E5D00977B85 /* InfoPlist.strings */,
+				228DF29A19298E5D00977B85 /* main.m */,
+				228DF29C19298E5D00977B85 /* Time-management-Prefix.pch */,
+				228DF29D19298E5D00977B85 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		228DF2B519298E5D00977B85 /* Time-managementTests */ = {
+			isa = PBXGroup;
+			children = (
+				228DF2BB19298E5D00977B85 /* Time_managementTests.m */,
+				228DF2B619298E5D00977B85 /* Supporting Files */,
+			);
+			path = "Time-managementTests";
+			sourceTree = "<group>";
+		};
+		228DF2B619298E5D00977B85 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				228DF2B719298E5D00977B85 /* Time-managementTests-Info.plist */,
+				228DF2B819298E5D00977B85 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		228DF28A19298E5D00977B85 /* Time-management */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 228DF2BF19298E5D00977B85 /* Build configuration list for PBXNativeTarget "Time-management" */;
+			buildPhases = (
+				228DF28719298E5D00977B85 /* Sources */,
+				228DF28819298E5D00977B85 /* Frameworks */,
+				228DF28919298E5D00977B85 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Time-management";
+			productName = "Time-management";
+			productReference = 228DF28B19298E5D00977B85 /* Time-management.app */;
+			productType = "com.apple.product-type.application";
+		};
+		228DF2AE19298E5D00977B85 /* Time-managementTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 228DF2C219298E5D00977B85 /* Build configuration list for PBXNativeTarget "Time-managementTests" */;
+			buildPhases = (
+				228DF2AB19298E5D00977B85 /* Sources */,
+				228DF2AC19298E5D00977B85 /* Frameworks */,
+				228DF2AD19298E5D00977B85 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				228DF2B419298E5D00977B85 /* PBXTargetDependency */,
+			);
+			name = "Time-managementTests";
+			productName = "Time-managementTests";
+			productReference = 228DF2AF19298E5D00977B85 /* Time-managementTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		228DF28319298E5D00977B85 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = Bz;
+				TargetAttributes = {
+					228DF2AE19298E5D00977B85 = {
+						TestTargetID = 228DF28A19298E5D00977B85;
+					};
+				};
+			};
+			buildConfigurationList = 228DF28619298E5D00977B85 /* Build configuration list for PBXProject "Time-management" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 228DF28219298E5D00977B85;
+			productRefGroup = 228DF28C19298E5D00977B85 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				228DF28A19298E5D00977B85 /* Time-management */,
+				228DF2AE19298E5D00977B85 /* Time-managementTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		228DF28919298E5D00977B85 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				228DF29919298E5D00977B85 /* InfoPlist.strings in Resources */,
+				228DF2AA19298E5D00977B85 /* Images.xcassets in Resources */,
+				228DF29F19298E5D00977B85 /* Credits.rtf in Resources */,
+				228DF2A519298E5D00977B85 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		228DF2AD19298E5D00977B85 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				228DF2BA19298E5D00977B85 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		228DF28719298E5D00977B85 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				228DF2A219298E5D00977B85 /* AppDelegate.m in Sources */,
+				228DF2A819298E5D00977B85 /* Time_management.xcdatamodeld in Sources */,
+				228DF29B19298E5D00977B85 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		228DF2AB19298E5D00977B85 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				228DF2BC19298E5D00977B85 /* Time_managementTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		228DF2B419298E5D00977B85 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 228DF28A19298E5D00977B85 /* Time-management */;
+			targetProxy = 228DF2B319298E5D00977B85 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		228DF29719298E5D00977B85 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				228DF29819298E5D00977B85 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		228DF29D19298E5D00977B85 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				228DF29E19298E5D00977B85 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		228DF2A319298E5D00977B85 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				228DF2A419298E5D00977B85 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		228DF2B819298E5D00977B85 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				228DF2B919298E5D00977B85 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		228DF2BD19298E5D00977B85 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		228DF2BE19298E5D00977B85 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		228DF2C019298E5D00977B85 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Time-management/Time-management-Prefix.pch";
+				INFOPLIST_FILE = "Time-management/Time-management-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		228DF2C119298E5D00977B85 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Time-management/Time-management-Prefix.pch";
+				INFOPLIST_FILE = "Time-management/Time-management-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		228DF2C319298E5D00977B85 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Time-management.app/Contents/MacOS/Time-management";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Time-management/Time-management-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Time-managementTests/Time-managementTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		228DF2C419298E5D00977B85 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Time-management.app/Contents/MacOS/Time-management";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Time-management/Time-management-Prefix.pch";
+				INFOPLIST_FILE = "Time-managementTests/Time-managementTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		228DF28619298E5D00977B85 /* Build configuration list for PBXProject "Time-management" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				228DF2BD19298E5D00977B85 /* Debug */,
+				228DF2BE19298E5D00977B85 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		228DF2BF19298E5D00977B85 /* Build configuration list for PBXNativeTarget "Time-management" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				228DF2C019298E5D00977B85 /* Debug */,
+				228DF2C119298E5D00977B85 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		228DF2C219298E5D00977B85 /* Build configuration list for PBXNativeTarget "Time-managementTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				228DF2C319298E5D00977B85 /* Debug */,
+				228DF2C419298E5D00977B85 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		228DF2A619298E5D00977B85 /* Time_management.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				228DF2A719298E5D00977B85 /* Time_management.xcdatamodel */,
+			);
+			currentVersion = 228DF2A719298E5D00977B85 /* Time_management.xcdatamodel */;
+			path = Time_management.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 228DF28319298E5D00977B85 /* Project object */;
+}
